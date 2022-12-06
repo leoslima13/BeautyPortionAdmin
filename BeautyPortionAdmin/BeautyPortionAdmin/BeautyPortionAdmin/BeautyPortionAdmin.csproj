@@ -1,0 +1,144 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ReactiveProperty" Version="7.6.1" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.10" />
+    <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.6.0" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="8.0.0.1909" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.1" />
+    <PackageReference Include="Sharpnado.Tabs" Version="2.0.1" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="1.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Products\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Views\Dialogs\" />
+    <Folder Include="Views\Dialogs\ActionSheet\" />
+    <Folder Include="Views\Dialogs\ActionSheet\Views\" />
+    <Folder Include="Views\Dialogs\Picker\" />
+    <Folder Include="Templates\" />
+    <Folder Include="Views\Orders\" />
+    <Folder Include="Views\Orders\DataTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Fonts\fa-light-300.otf" />
+    <None Remove="Fonts\fa-solid-900.otf" />
+    <None Remove="Fonts\fa-regular-400.otf" />
+    <None Remove="Fonts\Gill-Sans-Light.otf" />
+    <None Remove="Fonts\Gill-Sans-Medium.otf" />
+    <None Remove="Fonts\Gill-Sans-Regular.otf" />
+    <None Remove="Images\beautyportion.svg" />
+    <None Remove="Fonts\fa-brands.otf" />
+    <None Remove="Images\pix.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\fa-light-300.otf" />
+    <EmbeddedResource Include="Fonts\fa-solid-900.otf" />
+    <EmbeddedResource Include="Fonts\fa-regular-400.otf" />
+    <EmbeddedResource Include="Fonts\Gill-Sans-Light.otf" />
+    <EmbeddedResource Include="Fonts\Gill-Sans-Medium.otf" />
+    <EmbeddedResource Include="Fonts\Gill-Sans-Regular.otf" />
+    <EmbeddedResource Include="Images\beautyportion.svg" />
+    <EmbeddedResource Include="Fonts\fa-brands.otf" />
+    <EmbeddedResource Include="Images\pix.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Home\Tabs\ClientsTab.xaml.cs">
+      <DependentUpon>ClientsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Home\Tabs\OrdersTab.xaml.cs">
+      <DependentUpon>OrdersTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Home\Tabs\ProductsTab.xaml.cs">
+      <DependentUpon>ProductsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Home\Tabs\ReportsTab.xaml.cs">
+      <DependentUpon>ReportsTab.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Controls\CustomEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\Toast\Views\ToastErrorView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\Toast\Views\ToastList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\Toast\Views\ToastSuccessView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Entry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Labels.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Styles\Spaces.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Client\AddClientPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Home\Tabs\ClientsTab.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Home\Tabs\OrdersTab.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Home\Tabs\ProductsTab.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Home\Tabs\ReportsTab.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Master\MasterPageTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Controls\CustomEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Styles\Entry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Styles\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Styles\Labels.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Styles\Spaces.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+</Project>

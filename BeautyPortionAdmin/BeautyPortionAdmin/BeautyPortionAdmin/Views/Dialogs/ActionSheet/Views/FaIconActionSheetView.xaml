@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<DataTemplate x:Class="BeautyPortionAdmin.Views.Dialogs.ActionSheet.Views.FaIconActionSheetView"
+              xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <Grid HorizontalOptions="FillAndExpand"
+          VerticalOptions="Fill"
+          Padding="{StaticResource Medium-Space}"
+          xct:TouchEffect.Command="{Binding SelectCommand}"
+          xct:TouchEffect.NativeAnimation="True"
+          ColumnSpacing="{StaticResource Small-Space-Value}"
+          ColumnDefinitions="1*, 9*">
+
+        <Label Text="{Binding Icon.Value}"
+               VerticalOptions="Center"
+               FontFamily="{Binding FontFamily.Value}"
+               BackgroundColor="Transparent"
+               FontSize="{StaticResource Medium-Icon-Font}"
+               TextColor="{Binding IconColor.Value}" />
+
+        <Label Grid.Column="1"
+               Text="{Binding Option}"
+               Style="{StaticResource Bold-Label}"
+               VerticalOptions="Center"
+               FontSize="{StaticResource Medium-Font}"
+               TextColor="{StaticResource Primary-Dark-Color}" />
+    </Grid>
+</DataTemplate>

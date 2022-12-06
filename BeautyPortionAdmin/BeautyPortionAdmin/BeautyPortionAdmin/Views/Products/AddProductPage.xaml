@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Products.AddProductPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+             xmlns:behaviors="clr-namespace:BeautyPortionAdmin.Behaviors;assembly=BeautyPortionAdmin"
+             xmlns:validators="clr-namespace:BeautyPortionAdmin.Validators;assembly=BeautyPortionAdmin"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Margin="{StaticResource Small-Space}"
+                         Padding="{StaticResource Medium-Space}"
+                         Spacing="{StaticResource Small-Space-Value}"
+                         BackgroundColor="White">
+
+                <xct:AvatarView Text="{Binding Initials.Value}"
+                                Source="{Binding Photo.Value}"
+                                HorizontalOptions="CenterAndExpand"
+                                FontSize="{StaticResource X-Large-Font}"
+                                Size="140"
+                                TextColor="White"
+                                Color="{StaticResource Primary-Dark-Color}">
+                    <xct:AvatarView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddPhotoCommand}" />
+                    </xct:AvatarView.GestureRecognizers>
+                </xct:AvatarView>
+
+                <controls:CustomEntry Text="{Binding Name.Value}"
+                                      Placeholder="Nome do Produto"
+                                      FloatLabelText="Nome do Produto"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:CustomEntry Text="{Binding Quantity.Value}"
+                                      Placeholder="Quantidade"
+                                      FloatLabelText="Quantidade"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:CustomEntry Text="{Binding Weight.Value}"
+                                      Keyboard="Numeric"
+                                      Placeholder="Peso - em mg, ml"
+                                      FloatLabelText="Peso"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:CustomEntry Text="{Binding Price.Value, Converter={StaticResource PriceConverter}}"
+                                      Keyboard="Numeric"
+                                      Placeholder="Preço"
+                                      FloatLabelText="Preço"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:EnhancedButton Text="Adicionar"
+                                         Command="{Binding AddProductCommand}"
+                                         HorizontalOptions="FillAndExpand"
+                                         Margin="{StaticResource T-Small-Space}"
+                                         IsVisible="{Binding AddingProduct.Value}"
+                                         IsBusy="{Binding BusyNotifier.IsBusy}" />
+
+                <controls:EnhancedButton Text="Salvar"
+                                         Command="{Binding EditProductCommand}"
+                                         HorizontalOptions="FillAndExpand"
+                                         Margin="{StaticResource T-Small-Space}"
+                                         IsVisible="{Binding AddingProduct.Value, Converter={xct:InvertedBoolConverter}}"
+                                         IsBusy="{Binding BusyNotifier.IsBusy}" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

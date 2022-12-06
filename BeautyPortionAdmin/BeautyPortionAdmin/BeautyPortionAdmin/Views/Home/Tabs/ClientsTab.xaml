@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="BeautyPortionAdmin.Views.Home.Tabs.ClientsTab"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts">
+    <ContentView.Content>
+        <StackLayout Padding="{StaticResource Medium-Space}"
+                     Spacing="{StaticResource Medium-Space-Value}">
+            <StackLayout Orientation="Horizontal"
+                         Spacing="{StaticResource Small-Space-Value}">
+                <Label Text="{x:Static fonts:FaIcon.Search}"
+                       Style="{StaticResource Font-Label}"
+                       FontSize="{StaticResource Large-Font}"
+                       VerticalTextAlignment="Center" />
+                <controls:BorderlessEntry x:Name="borderlessEntry"
+                                          Text="{Binding SearchCriteria.Value}"
+                                          FontSize="{StaticResource Large-Font}"
+                                          TextColor="{StaticResource Primary-Text-Color}"
+                                          Placeholder="Busque um cliente pelo nome..."
+                                          PlaceholderColor="{StaticResource Secondary-Text-Color}" />
+                <Button Text="{x:Static fonts:FaIcon.Times}"
+                        Command="{Binding ClearCriteriaCommand}"
+                        Style="{StaticResource Font-Button}"
+                        HorizontalOptions="EndAndExpand"
+                        HeightRequest="{Binding Source={x:Reference borderlessEntry}, Path=Height}"
+                        IsVisible="{Binding SearchCriteria.Value, Converter={xct:IsNotNullOrEmptyConverter}}" />
+            </StackLayout>
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  BackgroundColor="White"
+                  Padding="{StaticResource Micro-Space}">
+                <CollectionView HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                ItemsSource="{Binding Clients.Value.Filtered}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="2"
+                                         Orientation="Vertical"
+                                         HorizontalItemSpacing="3"
+                                         VerticalItemSpacing="3" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="{StaticResource Small-Space}"
+                                   xct:TouchEffect.Command="{Binding GoToDetailsCommand}"
+                                   HasShadow="False"
+                                   CornerRadius="10"
+                                   BackgroundColor="{StaticResource Primary-Light-Color}">
+                                <Grid RowDefinitions="auto, auto, auto"
+                                      RowSpacing="{StaticResource Small-Space-Value}">
+                                    <xct:AvatarView Text="{Binding Initials}"
+                                                    Source="{Binding Photo}"
+                                                    HorizontalOptions="Center"
+                                                    BorderColor="{StaticResource Primary-Dark-Color}"
+                                                    Size="50"
+                                                    FontSize="{StaticResource Medium-Font}"
+                                                    TextColor="White"
+                                                    Color="{StaticResource Primary-Dark-Color}" />
+                                    <Label Grid.Row="1"
+                                           Text="{Binding FullName}"
+                                           HorizontalOptions="Center"
+                                           FontFamily="GillSansMedium"
+                                           TextColor="{StaticResource Primary-Text-Color}"
+                                           FontSize="{StaticResource Medium-Font}" />
+
+                                    <Label Grid.Row="2"
+                                           Text="{Binding Phone}"
+                                           HorizontalOptions="Center"
+                                           FontFamily="GillSans"
+                                           TextColor="{StaticResource Secondary-Text-Color}"
+                                           FontSize="{StaticResource Medium-Font}" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Label Text="Nenhum cliente encontrado"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start"
+                               TextColor="{StaticResource Secondary-Text-Color}" />
+                    </CollectionView.EmptyView>
+                    <CollectionView.Footer>
+                        <BoxView HeightRequest="0" />
+                    </CollectionView.Footer>
+                </CollectionView>
+                <Frame HorizontalOptions="End"
+                       VerticalOptions="End"
+                       Padding="2"
+                       xct:TouchEffect.NativeAnimation="True"
+                       xct:TouchEffect.Command="{Binding AddNewClientCommand}"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       CornerRadius="25"
+                       BackgroundColor="{StaticResource Accent-Color}">
+                    <Label Text="{x:Static fonts:FaIcon.Plus}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontFamily="FontAwesomeRegular"
+                           FontSize="{StaticResource Large-Font}"
+                           TextColor="White"
+                           InputTransparent="True" />
+                </Frame>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

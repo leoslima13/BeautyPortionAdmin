@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Orders.OrderSummaryStepPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid VerticalOptions="FillAndExpand"
+                  Margin="{StaticResource Medium-Space}"
+                  Padding="{StaticResource Medium-Space}"
+                  xct:SafeAreaEffect.SafeArea="false,false,false,true"
+                  BackgroundColor="White"
+                  RowDefinitions="*, auto">
+
+                <StackLayout Grid.Row="0"
+                             Spacing="{StaticResource Medium-Space-Value}">
+
+                    <Grid Padding="{StaticResource Small-Space}"
+                          BackgroundColor="{StaticResource Page-Background-Color}"
+                          ColumnDefinitions="auto, *"
+                          ColumnSpacing="{StaticResource Small-Space-Value}">
+                        <xct:AvatarView Grid.Column="0"
+                                        Text="{Binding ClientInitials.Value}"
+                                        Source="{Binding ClientPhoto.Value}"
+                                        VerticalOptions="Center"
+                                        BorderColor="{StaticResource Primary-Dark-Color}"
+                                        Size="40"
+                                        FontSize="{StaticResource Large-Font}"
+                                        TextColor="White"
+                                        Color="{StaticResource Primary-Dark-Color}" />
+                        <Label Grid.Column="1"
+                               Text="{Binding ClientName.Value}"
+                               VerticalOptions="Center"
+                               FontSize="{StaticResource Large-Font}"
+                               FontFamily="GillSansMedium" />
+                    </Grid>
+
+                    <StackLayout BindableLayout.ItemsSource="{Binding SelectedProducts.Value}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="{StaticResource Small-Space}"
+                                      BackgroundColor="{StaticResource Page-Background-Color}"
+                                      ColumnDefinitions="auto, *"
+                                      RowDefinitions="auto, auto, auto"
+                                      ColumnSpacing="-5"
+                                      RowSpacing="{StaticResource Small-Space-Value}">
+                                    <xct:AvatarView Grid.Column="0"
+                                                    Text="{Binding ProductInitials}"
+                                                    Source="{Binding ProductPhoto}"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Center"
+                                                    BorderColor="{StaticResource Primary-Dark-Color}"
+                                                    Size="40"
+                                                    FontSize="{StaticResource Large-Font}"
+                                                    TextColor="White"
+                                                    Color="{StaticResource Primary-Dark-Color}" />
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding ProductName}"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           FontSize="{StaticResource Large-Font}"
+                                           FontFamily="GillSansMedium" />
+
+                                    <Label Grid.Row="1"
+                                           Grid.Column="0"
+                                           Text="Frações:"
+                                           TextColor="{StaticResource Accent-Color}"
+                                           FontFamily="GillSansMedium"
+                                           FontSize="{StaticResource Medium-Font}" />
+
+                                    <StackLayout Grid.Row="2"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"
+                                                 HorizontalOptions="FillAndExpand">
+                                        <StackLayout HorizontalOptions="FillAndExpand"
+                                                     Spacing="{StaticResource Small-Space-Value}"
+                                                     BindableLayout.ItemsSource="{Binding SelectedFractions.Value}">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label VerticalOptions="CenterAndExpand"
+                                                               TextColor="{StaticResource Primary-Text-Color}"
+                                                               FontSize="{StaticResource Small-Font}">
+                                                            <Label.FormattedText>
+                                                                <FormattedString>
+                                                                    <Span Text="{Binding Weight, StringFormat='{0} g/ml'}" />
+                                                                    <Span Text=" " />
+                                                                    <Span Text="{Binding Quantity, StringFormat='({0})'}" />
+                                                                </FormattedString>
+                                                            </Label.FormattedText>
+                                                        </Label>
+                                                        <Label Text="{Binding Price, Converter={StaticResource PriceConverter}}"
+                                                               HorizontalOptions="EndAndExpand"
+                                                               VerticalOptions="CenterAndExpand"
+                                                               Margin="0,2,0,0"
+                                                               TextColor="{StaticResource Primary-Dark-Color}"
+                                                               FontSize="{StaticResource Small-Font}"
+                                                               FontFamily="GillSansMedium" />
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+                                        <Label Text="{Binding TotalFractions.Value, Converter={StaticResource PriceConverter}}"
+                                               HorizontalOptions="EndAndExpand"
+                                               VerticalOptions="Center"
+                                               Margin="{StaticResource T-Small-Space}"
+                                               TextColor="{StaticResource Primary-Dark-Color}"
+                                               FontSize="{StaticResource Medium-Font}"
+                                               FontFamily="GillSansMedium" />
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+
+                    <StackLayout Padding="{StaticResource Small-Space}"
+                                 BackgroundColor="{StaticResource Page-Background-Color}"
+                                 Spacing="{StaticResource Small-Space-Value}">
+                        <Label VerticalOptions="Center"
+                               FontSize="{StaticResource Small-Font}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Forma de Pagamento: " />
+                                    <Span Text="{Binding PaymentMethod.Value}"
+                                          TextColor="{StaticResource Primary-Dark-Color}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="{Binding DeliveryMethod.Value, StringFormat='Forma de Entrega: {0}'}"
+                               VerticalOptions="Center"
+                               FontSize="{StaticResource Small-Font}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Forma de Entrega: " />
+                                    <Span Text="{Binding DeliveryMethod.Value}"
+                                          TextColor="{StaticResource Primary-Dark-Color}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label VerticalOptions="Center"
+                               FontSize="{StaticResource Small-Font}"
+                               IsVisible="{Binding Freight.Value, Converter={xct:IsNotNullOrEmptyConverter}}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Frete: " />
+                                    <Span Text="{Binding Freight.Value, Converter={StaticResource PriceConverter}}"
+                                          TextColor="{StaticResource Primary-Dark-Color}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="{Binding Address.Value, StringFormat='Endereço da Entrega: {0}'}"
+                               VerticalOptions="Center"
+                               FontSize="{StaticResource Small-Font}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Endereço de Entrega: " />
+                                    <Span Text="{Binding Address.Value}"
+                                          TextColor="{StaticResource Primary-Dark-Color}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <StackLayout Padding="{StaticResource Small-Space}"
+                                 BackgroundColor="{StaticResource Page-Background-Color}"
+                                 Spacing="{StaticResource Small-Space-Value}"
+                                 Orientation="Horizontal">
+                        <Label Text="Total do Pedido:"
+                               VerticalOptions="Center"
+                               FontSize="{StaticResource Medium-Font}" />
+                        <Label Text="{Binding TotalOrder.Value, Converter={StaticResource PriceConverter}}"
+                               HorizontalOptions="EndAndExpand"
+                               VerticalOptions="Center"
+                               Margin="0,2,0,0"
+                               FontSize="{StaticResource X-Large-Font}"
+                               FontFamily="GillSansMedium"
+                               TextColor="{StaticResource Primary-Dark-Color}" />
+                    </StackLayout>
+
+                </StackLayout>
+
+
+                <controls:EnhancedButton Grid.Row="1"
+                                         Text="Confirmar"
+                                         Command="{Binding ConfirmCommand}"
+                                         VerticalOptions="EndAndExpand"
+                                         IsBusy="{Binding BusyNotifier.IsBusy}" />
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

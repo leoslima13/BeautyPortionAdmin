@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+                    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                    xmlns:toast="clr-namespace:BeautyPortionAdmin.Controls.Toast.Views;assembly=BeautyPortionAdmin">
+
+    <ControlTemplate x:Key="MasterPageTemplate">
+        <Grid BindingContext="{Binding Source={RelativeSource TemplatedParent}}">
+
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  RowDefinitions="auto, *"
+                  RowSpacing="0">
+                <Frame Grid.Row="0"
+                       Padding="0"
+                       BackgroundColor="{StaticResource Accent-Color}"
+                       CornerRadius="0"
+                       IsVisible="{Binding BindingContext.MasterPageViewModel.HasNavigationBar.Value}">
+                    <Grid Grid.Row="0"
+                          Padding="{StaticResource Small-Space}"
+                          xct:SafeAreaEffect.SafeArea="false,true,false,false">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="40" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  Left Icons  -->
+                        <Grid Grid.Column="0"
+                              IsVisible="{Binding BindingContext.MasterPageViewModel.IsBackButtonVisible.Value}">
+                            <Button Text="{x:Static fonts:FaIcon.ArrowLeft}"
+                                    Command="{Binding BindingContext.MasterPageViewModel.GoBackCommand}"
+                                    VerticalOptions="CenterAndExpand"
+                                    FontFamily="FontAwesomeRegular"
+                                    BackgroundColor="Transparent"
+                                    FontSize="{StaticResource Medium-Icon-Font}"
+                                    TextColor="{StaticResource Text-Color}" />
+                        </Grid>
+
+                        <!--  Title  -->
+                        <Label Grid.Column="1"
+                               Text="{Binding BindingContext.Title}"
+                               Style="{StaticResource Title-Label}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               LineBreakMode="TailTruncation" />
+
+                    </Grid>
+                </Frame>
+                <ContentPresenter Grid.Row="1"
+                                  BackgroundColor="{StaticResource Page-Background-Color}" />
+            </Grid>
+            <toast:ToastList Margin="{StaticResource Small-Space}"
+                             xct:SafeAreaEffect.SafeArea="false,true,false,false"
+                             ItemsSource="{Binding BindingContext.MasterPageViewModel.ToastItems}" />
+        </Grid>
+    </ControlTemplate>
+</ResourceDictionary>

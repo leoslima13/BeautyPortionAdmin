@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Products.ProductDetailPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Content>
+        <Grid Padding="{StaticResource Medium-Space}"
+              xct:SafeAreaEffect.SafeArea="false,false,false,true"
+              RowSpacing="{StaticResource Medium-Space-Value}"
+              RowDefinitions="auto, *">
+            <Grid Grid.Row="0"
+                  HorizontalOptions="FillAndExpand"
+                  BackgroundColor="White">
+                <StackLayout Padding="{StaticResource Small-Space}"
+                             Spacing="{StaticResource Small-Space-Value}">
+                    <xct:AvatarView Text="{Binding Initials.Value}"
+                                    Source="{Binding Photo}"
+                                    HorizontalOptions="Center"
+                                    BorderColor="{StaticResource Primary-Dark-Color}"
+                                    Size="100"
+                                    FontSize="{StaticResource X-Large-Font}"
+                                    TextColor="White"
+                                    Color="{StaticResource Primary-Dark-Color}" />
+                    <Label Text="{Binding ProductName.Value}"
+                           HorizontalOptions="Center"
+                           FontSize="{StaticResource Large-Font}"
+                           FontFamily="GillSansMedium" />
+
+                    <Grid HorizontalOptions="Center"
+                          ColumnDefinitions="*,*"
+                          RowDefinitions="auto, auto, auto">
+                        <Label Grid.Column="0"
+                               Text="Quantidade:"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"
+                               TextColor="{StaticResource Accent-Color}" />
+
+                        <Label Grid.Column="1"
+                               Text="{Binding Quantity.Value}"
+                               HorizontalOptions="Start" />
+
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Peso:"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"
+                               TextColor="{StaticResource Accent-Color}" />
+
+                        <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding Weight.Value, StringFormat='{0} mg/ml'}"
+                               HorizontalOptions="Start" />
+
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Estoque:"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"
+                               TextColor="{StaticResource Accent-Color}" />
+
+                        <Label Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding TotalWeight.Value, StringFormat='{0} mg/ml'}"
+                               HorizontalOptions="Start" />
+                    </Grid>
+                </StackLayout>
+                <Button Text="{x:Static fonts:FaIcon.EllipsisV}"
+                        Command="{Binding ActionMenuCommand}"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="Start"
+                        FontFamily="FontAwesomeRegular"
+                        TextColor="{StaticResource Primary-Dark-Color}"
+                        FontSize="40"
+                        BackgroundColor="Transparent" />
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Padding="{StaticResource Small-Space}"
+                  BackgroundColor="White"
+                  RowDefinitions="auto, *">
+                <Label Text="Frações"
+                       FontFamily="GillSansMedium"
+                       FontSize="{StaticResource Large-Font}"
+                       TextColor="{StaticResource Accent-Color}" />
+
+                <CollectionView Grid.Row="1"
+                                ItemsSource="{Binding Fractions.Value}"
+                                ItemSizingStrategy="MeasureFirstItem">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="3"
+                                         Orientation="Vertical"
+                                         HorizontalItemSpacing="{StaticResource Small-Space-Value}"
+                                         VerticalItemSpacing="{StaticResource Small-Space-Value}" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="0,5"
+                                   xct:TouchEffect.Command="{Binding EditFractionCommand}"
+                                   HasShadow="false"
+                                   BackgroundColor="{StaticResource Primary-Dark-Color}">
+                                <StackLayout Spacing="{StaticResource Small-Space-Value}">
+                                    <Label Text="{x:Static fonts:FaIcon.PumpSoap}"
+                                           HorizontalOptions="Center"
+                                           FontFamily="FontAwesomeLight"
+                                           TextColor="{StaticResource Text-Color}"
+                                           FontSize="{StaticResource Large-Font}" />
+                                    <Label Text="{Binding Weight, StringFormat='{0} g/ml'}"
+                                           HorizontalOptions="Center"
+                                           TextColor="{StaticResource Text-Color}"
+                                           FontSize="{StaticResource Medium-Font}" />
+                                    <Label Text="{Binding Price, Converter={StaticResource PriceConverter}}"
+                                           HorizontalOptions="Center"
+                                           TextColor="{StaticResource Text-Color}"
+                                           FontSize="{StaticResource Medium-Font}" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Label Text="Você ainda não possui frações cadastradas para esse produto."
+                               HorizontalOptions="Center" />
+                    </CollectionView.EmptyView>
+                </CollectionView>
+
+                <Frame Grid.Row="1"
+                       HorizontalOptions="End"
+                       VerticalOptions="End"
+                       Padding="2"
+                       xct:TouchEffect.NativeAnimation="True"
+                       xct:TouchEffect.Command="{Binding AddFractionCommand}"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       CornerRadius="25"
+                       BackgroundColor="{StaticResource Accent-Color}">
+                    <Label Text="{x:Static fonts:FaIcon.Plus}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontFamily="FontAwesomeRegular"
+                           FontSize="{StaticResource Large-Font}"
+                           TextColor="White"
+                           InputTransparent="True" />
+                </Frame>
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<popup:PopupPage x:Class="BeautyPortionAdmin.Views.Dialogs.DialogPage"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:prism="http://prismlibrary.com"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 BackgroundColor="#33000000"
+                 CloseWhenBackgroundIsClicked="{Binding CanClose.Value}">
+    <Frame VerticalOptions="Center"
+           Margin="{OnIdiom Tablet='50,10',
+                            Phone={StaticResource Medium-Space}}"
+           CornerRadius="0"
+           HasShadow="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid BackgroundColor="{StaticResource Accent-Color}">
+
+                <Label Text="{Binding Title}"
+                       Style="{StaticResource Bold-Label}"
+                       Margin="{StaticResource Medium-Space}"
+                       FontSize="{StaticResource Large-Font}"
+                       TextColor="{StaticResource Text-Color}"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+
+            <StackLayout Grid.Row="1"
+                         Padding="{StaticResource Small-Space}"
+                         BackgroundColor="{StaticResource Text-Color}">
+                <Label Text="{Binding Message.Value}"
+                       Margin="{StaticResource T-Micro-Space}"
+                       FontSize="{StaticResource Medium-Font}"
+                       HorizontalTextAlignment="Center"
+                       TextColor="{StaticResource Primary-Text-Color}" />
+
+                <FlexLayout Padding="{StaticResource T-Medium-Space}"
+                            AlignContent="Stretch"
+                            AlignItems="Stretch"
+                            Direction="Column"
+                            JustifyContent="SpaceEvenly">
+                    <Button Text="{Binding AcceptButtonText.Value}"
+                            Command="{Binding AcceptCommand}"
+                            Margin="{StaticResource LR-Medium-TB-Micro-Space}" />
+                    <Button Text="{Binding CancelButtonText.Value}"
+                            Command="{Binding CancelCommand}"
+                            Style="{StaticResource Secondary-Button}"
+                            Margin="{StaticResource LR-Medium-TB-Micro-Space}"
+                            IsVisible="{Binding CanCancel.Value}" />
+                </FlexLayout>
+
+            </StackLayout>
+
+        </Grid>
+    </Frame>
+</popup:PopupPage>

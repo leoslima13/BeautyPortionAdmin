@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:attachedProperties="clr-namespace:BeautyPortionAdmin.AttachedProperties;assembly=BeautyPortionAdmin"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+             xmlns:panc="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="BeautyPortionAdmin.Controls.Toast.Views.ToastSuccessView">
+  <ContentView.Content>
+    <panc:PancakeView
+            CornerRadius="10"
+            Padding="{StaticResource LR-Small-TB-Medium-Space}"
+            attachedProperties:TappedGestureAttached.Command="{Binding TappedCommand}"
+            BackgroundColor="{StaticResource Success-Color}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start">
+
+      <Grid ColumnDefinitions="auto,auto"
+            ColumnSpacing="{StaticResource Micro-Space-Value}"
+            HorizontalOptions="{Binding TextAlignment}">
+        <Label Grid.Column="0"
+               FontFamily="FontAwesomeRegular"
+               FontSize="{StaticResource Large-Icon-Font}"
+               Text="{x:Static fonts:FaIcon.CheckCircle}"
+               TextColor="{StaticResource Text-Color}"
+               VerticalOptions="CenterAndExpand"
+               VerticalTextAlignment="Center" />
+        <Label
+              Grid.Column="1"
+              FontSize="{StaticResource Large-Font}"
+              FontFamily="GillSansMedium"
+              Text="{Binding Title}"
+              TextColor="White"
+              VerticalOptions="CenterAndExpand"
+              VerticalTextAlignment="Center" />
+      </Grid>
+    </panc:PancakeView>
+  </ContentView.Content>
+</ContentView>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<DataTemplate x:Class="BeautyPortionAdmin.Views.Orders.DataTemplates.FractionPickerTemplate"
+              xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+              xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin">
+    <Grid Padding="{StaticResource Small-Space}"
+          ColumnDefinitions="auto, *, auto"
+          RowDefinitions="auto, auto">
+
+        <xct:AvatarView Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Text="{x:Static fonts:FaIcon.PumpSoap}"
+                        VerticalOptions="CenterAndExpand"
+                        Size="40"
+                        TextColor="White"
+                        FontSize="{StaticResource Large-Font}"
+                        FontFamily="FontAwesomeRegular"
+                        Color="{StaticResource Primary-Dark-Color}" />
+
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               VerticalOptions="EndAndExpand"
+               Text="{Binding Value.Weight, StringFormat='Peso: {0} g/ml'}"
+               FontSize="{StaticResource Small-Font}" />
+
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               VerticalOptions="StartAndExpand"
+               Text="{Binding Value.Price, Converter={StaticResource PriceConverter}}"
+               FontSize="{StaticResource Small-Font}" />
+
+        <StackLayout Grid.Row="0"
+                     Grid.RowSpan="2"
+                     Grid.Column="3"
+                     VerticalOptions="Center"
+                     Orientation="Horizontal"
+                     Spacing="{StaticResource Small-Space-Value}">
+            <Button Text="{x:Static fonts:FaIcon.Minus}"
+                    Command="{Binding RemoveQuantityCommand}"
+                    Style="{StaticResource Font-Button}"
+                    TextColor="{StaticResource Accent-Color}" />
+            <Label Text="{Binding Quantity.Value}" VerticalOptions="Center"/>
+            <Button Text="{x:Static fonts:FaIcon.Plus}"
+                    Command="{Binding AddQuantityCommand}"
+                    Style="{StaticResource Font-Button}"
+                    TextColor="{StaticResource Accent-Color}" />
+        </StackLayout>
+
+    </Grid>
+</DataTemplate>

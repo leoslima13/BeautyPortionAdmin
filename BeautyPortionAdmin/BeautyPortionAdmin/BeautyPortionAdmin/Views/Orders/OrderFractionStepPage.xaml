@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Orders.OrderFractionStepPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid VerticalOptions="FillAndExpand"
+                  Margin="{StaticResource Medium-Space}"
+                  Padding="{StaticResource Medium-Space}"
+                  BackgroundColor="White"
+                  RowDefinitions="*, auto">
+
+                <StackLayout>
+                    <Label Text="Produtos Selecionados"
+                           FontFamily="GillSansMedium"
+                           TextColor="{StaticResource Primary-Dark-Color}"
+                           FontSize="{StaticResource Large-Font}" />
+                    <StackLayout HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand"
+                                 BindableLayout.ItemsSource="{Binding SelectedProducts.Value}"
+                                 Spacing="{StaticResource Medium-Space-Value}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="{StaticResource Small-Space}"
+                                      ColumnDefinitions="auto, *, auto"
+                                      RowDefinitions="auto, *"
+                                      BackgroundColor="{StaticResource Page-Background-Color}">
+                                    <xct:AvatarView Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="{Binding ProductInitials}"
+                                                    Source="{Binding ProductPhoto}"
+                                                    Size="40"
+                                                    FontSize="{StaticResource Large-Font}"
+                                                    TextColor="White"
+                                                    Color="{StaticResource Primary-Dark-Color}" />
+                                    <Label Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding ProductName}"
+                                           VerticalOptions="Center"
+                                           FontSize="{StaticResource Large-Font}"
+                                           FontFamily="GillSansMedium" />
+
+                                    <Label Grid.Row="0"
+                                           Grid.Column="2"
+                                           Text="Adicionar Frações"
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="Center"
+                                           xct:TouchEffect.Command="{Binding AddMoreFractionsCommand}"
+                                           FontSize="{StaticResource Small-Font}"
+                                           FontFamily="GillSansMedium"
+                                           TextColor="{StaticResource Accent-Color}">
+                                        <Label.Triggers>
+                                            <DataTrigger Binding="{Binding HasFractions.Value}"
+                                                         TargetType="Label"
+                                                         Value="True">
+                                                <Setter Property="Text" Value="Editar Seleção" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                    <FlexLayout Grid.Row="1"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="3"
+                                                Padding="{StaticResource Small-Space}"
+                                                BindableLayout.ItemsSource="{Binding Fractions.Value}"
+                                                BackgroundColor="White"
+                                                JustifyContent="Start"
+                                                Wrap="Wrap">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame Margin="3"
+                                                       Padding="{StaticResource Micro-Space}"
+                                                       HasShadow="false"
+                                                       BackgroundColor="{StaticResource Primary-Dark-Color}"
+                                                       FlexLayout.AlignSelf="Start">
+
+                                                    <Grid HeightRequest="{Binding Height, Source={x:Reference innerLayout}}">
+                                                        <StackLayout x:Name="innerLayout"
+                                                                     Padding="{StaticResource Small-Space}"
+                                                                     xct:TouchEffect.Command="{Binding EditFractionCommand}"
+                                                                     Spacing="{StaticResource Micro-Space-Value}">
+                                                            <Label Text="{x:Static fonts:FaIcon.PumpSoap}"
+                                                                   HorizontalOptions="Center"
+                                                                   FontFamily="FontAwesomeLight"
+                                                                   TextColor="{StaticResource Text-Color}"
+                                                                   FontSize="{StaticResource Large-Font}" />
+                                                            <Label Text="{Binding Weight, StringFormat='{0} g/ml'}"
+                                                                   HorizontalOptions="Center"
+                                                                   TextColor="{StaticResource Text-Color}"
+                                                                   FontSize="{StaticResource Small-Font}" />
+                                                            <Label Text="{Binding Price.Value, Converter={StaticResource PriceConverter}}"
+                                                                   HorizontalOptions="Center"
+                                                                   TextColor="{StaticResource Text-Color}"
+                                                                   FontSize="{StaticResource Small-Font}" />
+                                                            <Label Text="{Binding Quantity.Value, StringFormat='Qtd: {0}'}"
+                                                                   HorizontalOptions="Center"
+                                                                   TextColor="{StaticResource Text-Color}"
+                                                                   FontSize="{StaticResource Small-Font}" />
+                                                        </StackLayout>
+                                                        <Button Text="{x:Static fonts:FaIcon.TimesCircle}"
+                                                                Command="{Binding RemoveCommand}"
+                                                                Style="{StaticResource Font-Button}"
+                                                                HorizontalOptions="End"
+                                                                VerticalOptions="Start"
+                                                                Margin="0,-15,-15,0"
+                                                                Padding="0"
+                                                                HeightRequest="40"
+                                                                WidthRequest="40"
+                                                                FontSize="25"
+                                                                TextColor="{StaticResource Accent-Color}" />
+                                                    </Grid>
+
+
+                                                </Frame>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                        <BindableLayout.EmptyView>
+                                            <Label Text="Você ainda não selecionou as frações"
+                                                   FontSize="{StaticResource Small-Font}" />
+                                        </BindableLayout.EmptyView>
+                                    </FlexLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+
+
+                <Button Grid.Row="1"
+                        Text="Avançar"
+                        Command="{Binding NextCommand}"
+                        VerticalOptions="EndAndExpand" />
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

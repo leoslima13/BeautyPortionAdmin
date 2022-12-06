@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="BeautyPortionAdmin.Views.Home.HomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sho="http://sharpnado.com"
+    xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts"
+    xmlns:iOS="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    iOS:Page.UseSafeArea="False"
+    NavigationPage.HasNavigationBar="False"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:tabs="clr-namespace:BeautyPortionAdmin.Views.Home.Tabs"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    ControlTemplate="{StaticResource MasterPageTemplate}"
+    BackgroundColor="White">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style x:Key="BottomTabStyle" TargetType="sho:BottomTabItem">
+        <Setter Property="SelectedTabColor" Value="{StaticResource Accent-Color}" />
+        <Setter Property="UnselectedIconColor" Value="{StaticResource Primary-Color}" />
+        <Setter Property="UnselectedLabelColor" Value="{StaticResource Primary-Color}" />
+        <Setter Property="LabelSize" Value="{StaticResource Medium-Font}" />
+        <Setter Property="IconSize" Value="28" />
+        <Setter Property="FontFamily" Value="GillSans" />
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <Grid RowDefinitions="auto, *, auto">
+      <Frame Grid.Row="0" BackgroundColor="{StaticResource Accent-Color}" Padding="0" CornerRadius="0">
+        <StackLayout Orientation="Horizontal" Padding="{StaticResource Small-Space}" xct:SafeAreaEffect.SafeArea="false,true,false,false">
+          <Label Text="{Binding Title}" FontSize="{StaticResource X-Large-Font}" FontFamily="GillSansMedium"
+                 TextColor="White" VerticalOptions="Center" />
+          <xct:AvatarView Color="{StaticResource Primary-Dark-Color}"
+                          FontSize="{StaticResource Medium-Font}"
+                          Size="40"
+                          Text="YS" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+      </Frame>
+      <sho:ViewSwitcher x:Name="switcher" Grid.Row="1" Animate="False" SelectedIndex="{Binding SelectedIndexView.Value, Mode=TwoWay}">
+        <sho:LazyView x:TypeArguments="tabs:ClientsTab" BindingContext="{Binding ClientsTabViewModel.Value}" />
+        <sho:LazyView x:TypeArguments="tabs:OrdersTab" BindingContext="{Binding OrdersTabViewModel.Value}" />
+        <sho:LazyView x:TypeArguments="tabs:ProductsTab" BindingContext="{Binding ProductsTabViewModel.Value}" />
+        <sho:LazyView x:TypeArguments="tabs:ReportsTab" BindingContext="{Binding ReportsTabViewModel.Value}" />
+      </sho:ViewSwitcher>
+      <BoxView Grid.Row="2" HeightRequest=".5" BackgroundColor="{StaticResource Divider-Color}" VerticalOptions="Start" />
+
+
+      <sho:TabHostView Grid.Row="2"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       TabType="Fixed"
+                       xct:SafeAreaEffect.SafeArea="false,false,false,true"
+                       SelectedIndex="{Binding Source={x:Reference switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                       Margin="0,5,0,0">
+        <sho:TabHostView.Tabs>
+          <sho:BottomTabItem Label="Clientes" Style="{StaticResource BottomTabStyle}">
+            <sho:BottomTabItem.IconImageSource>
+              <FontImageSource FontFamily="FontAwesomeRegular"
+                               Glyph="{x:Static fonts:FaIcon.User}" />
+            </sho:BottomTabItem.IconImageSource>
+          </sho:BottomTabItem>
+          <sho:BottomTabItem Label="Pedidos" Style="{StaticResource BottomTabStyle}">
+            <sho:BottomTabItem.IconImageSource>
+              <FontImageSource FontFamily="FontAwesomeRegular"
+                               Glyph="{x:Static fonts:FaIcon.List}" />
+            </sho:BottomTabItem.IconImageSource>
+            <sho:BottomTabItem.Badge>
+              <sho:BadgeView BackgroundColor="{StaticResource Primary-Dark-Color}"
+                             IsVisible="false"
+                             TextColor="White"
+                             Text="0"
+                             FontFamily="GillSans"
+                             TextSize="13" />
+            </sho:BottomTabItem.Badge>
+          </sho:BottomTabItem>
+          <sho:TabButton ButtonBackgroundColor="{StaticResource Accent-Color}"
+                         ButtonCircleSize="55"
+                         ButtonPadding="15"
+                         Scale="1.3"
+                         TranslationY="-15"
+                         TapCommand="{Binding AddOrderCommand}">
+            <sho:TabButton.IconImageSource>
+              <FontImageSource FontFamily="FontAwesomeRegular"
+                               Color="White"
+                               Glyph="{x:Static fonts:FaIcon.Gift}" />
+            </sho:TabButton.IconImageSource>
+          </sho:TabButton>
+          <sho:BottomTabItem IconSize="30" Label="Produtos" Style="{StaticResource BottomTabStyle}">
+            <sho:BottomTabItem.IconImageSource>
+              <FontImageSource FontFamily="FontAwesomeRegular"
+                               Glyph="{x:Static fonts:FaIcon.PumpSoap}" />
+            </sho:BottomTabItem.IconImageSource>
+          </sho:BottomTabItem>
+          <sho:BottomTabItem IconSize="30" Label="Relatorio" Style="{StaticResource BottomTabStyle}">
+            <sho:BottomTabItem.IconImageSource>
+              <FontImageSource FontFamily="FontAwesomeRegular"
+                               Glyph="{x:Static fonts:FaIcon.ChartBar}" />
+            </sho:BottomTabItem.IconImageSource>
+          </sho:BottomTabItem>
+        </sho:TabHostView.Tabs>
+      </sho:TabHostView>
+    </Grid>
+  </ContentPage.Content>
+</ContentPage>

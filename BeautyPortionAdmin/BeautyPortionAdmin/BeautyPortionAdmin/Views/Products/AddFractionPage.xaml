@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<popup:PopupPage x:Class="BeautyPortionAdmin.Views.Products.AddFractionPage"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                 xmlns:behaviors="clr-namespace:BeautyPortionAdmin.Behaviors;assembly=BeautyPortionAdmin"
+                 xmlns:validators="clr-namespace:BeautyPortionAdmin.Validators;assembly=BeautyPortionAdmin"
+                 xmlns:prism="http://prismlibrary.com"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 BackgroundColor="#33000000">
+    <Frame VerticalOptions="Center"
+           Margin="{OnIdiom Tablet='50,10',
+                            Phone={StaticResource Medium-Space}}"
+           Padding="0"
+           CornerRadius="0"
+           HasShadow="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid BackgroundColor="{StaticResource Accent-Color}">
+
+                <Label Text="{Binding Title}"
+                       Style="{StaticResource Bold-Label}"
+                       Margin="{StaticResource Medium-Space}"
+                       FontSize="{StaticResource Large-Font}"
+                       TextColor="{StaticResource Text-Color}"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+
+            <StackLayout Grid.Row="1"
+                         Padding="{StaticResource Small-Space}"
+                         BackgroundColor="{StaticResource Text-Color}">
+
+                <controls:CustomEntry Text="{Binding Fraction.Value}"
+                                      Placeholder="Peso da Fração ml/g"
+                                      FloatLabelText="Peso da Fração"
+                                      Keyboard="Numeric"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:CustomEntry Text="{Binding Price.Value, Converter={StaticResource PriceConverter}}"
+                                      Keyboard="Numeric"
+                                      Placeholder="Preço"
+                                      FloatLabelText="Preço"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <Grid Padding="{StaticResource T-Medium-Space}"
+                      RowDefinitions="auto,auto,auto">
+                    <controls:EnhancedButton Text="Adicionar"
+                                             Command="{Binding AddCommand}"
+                                             HorizontalOptions="FillAndExpand"
+                                             IsBusy="{Binding BusyNotifier.IsBusy}"
+                                             IsVisible="{Binding CanRemove.Value, Converter={xct:InvertedBoolConverter}}" />
+                    <controls:EnhancedButton Grid.Row="1"
+                                             Text="Salvar"
+                                             Command="{Binding SaveCommand}"
+                                             HorizontalOptions="FillAndExpand"
+                                             IsBusy="{Binding BusyNotifier.IsBusy}"
+                                             IsVisible="{Binding CanRemove.Value}" />
+                    <controls:EnhancedButton Grid.Row="2"
+                                             Text="Excluir"
+                                             Command="{Binding RemoveCommand}"
+                                             Style="{StaticResource Secondary-Enhanced-Button}"
+                                             HorizontalOptions="FillAndExpand"
+                                             Margin="{StaticResource T-Micro-Space}"
+                                             IsBusy="{Binding BusyNotifier.IsBusy}"
+                                             IsVisible="{Binding CanRemove.Value}" />
+                </Grid>
+
+            </StackLayout>
+
+        </Grid>
+    </Frame>
+</popup:PopupPage>

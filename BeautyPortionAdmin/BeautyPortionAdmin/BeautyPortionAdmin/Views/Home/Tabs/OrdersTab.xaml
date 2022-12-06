@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="BeautyPortionAdmin.Views.Home.Tabs.OrdersTab"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls"
+             xmlns:templates="clr-namespace:BeautyPortionAdmin.Templates;assembly=BeautyPortionAdmin"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="OrderLabelStyle"
+                   TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource Small-Font}" />
+                <Setter Property="TextColor" Value="{StaticResource Primary-Dark-Color}" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+            <Style x:Key="OrderInfoStyle"
+                   TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource Small-Font}" />
+                <Setter Property="TextColor" Value="{StaticResource Primary-Text-Color}" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Padding="{StaticResource Medium-Space}"
+                     Spacing="{StaticResource Medium-Space-Value}">
+            <StackLayout Orientation="Horizontal"
+                         Spacing="{StaticResource Small-Space-Value}">
+                <Label Text="{x:Static fonts:FaIcon.Search}"
+                       Style="{StaticResource Font-Label}"
+                       FontSize="{StaticResource Large-Font}"
+                       VerticalTextAlignment="Center" />
+                <controls:BorderlessEntry x:Name="borderlessEntry"
+                                          Text="{Binding SearchCriteria.Value}"
+                                          FontSize="{StaticResource Large-Font}"
+                                          TextColor="{StaticResource Primary-Text-Color}"
+                                          Placeholder="Busque um pedido pelo cliente..."
+                                          PlaceholderColor="{StaticResource Secondary-Text-Color}" />
+                <Button Text="{x:Static fonts:FaIcon.Times}"
+                        Command="{Binding ClearCriteriaCommand}"
+                        Style="{StaticResource Font-Button}"
+                        HorizontalOptions="EndAndExpand"
+                        HeightRequest="{Binding Source={x:Reference borderlessEntry}, Path=Height}"
+                        IsVisible="{Binding SearchCriteria.Value, Converter={xct:IsNotNullOrEmptyConverter}}" />
+            </StackLayout>
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  Padding="{StaticResource Micro-Space}"
+                  BackgroundColor="White">
+                <CollectionView HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                ItemsSource="{Binding Orders.Value.Filtered}">
+                    <CollectionView.ItemTemplate>
+                        <templates:AlternateRowStyleDataTemplateSelector>
+                            <templates:AlternateRowStyleDataTemplateSelector.Template>
+                                <DataTemplate>
+                                    <Grid Padding="{StaticResource Small-Space}"
+                                          xct:TouchEffect.Command="{Binding GoToDetailsCommand}"
+                                          ColumnDefinitions="auto,*,auto"
+                                          RowDefinitions="auto, auto, auto ,auto"
+                                          BackgroundColor="{StaticResource Page-Background-Color}">
+                                        <Grid.Triggers>
+                                            <DataTrigger Binding="{Binding HasAlternateRowStyle.Value}"
+                                                         TargetType="Grid"
+                                                         Value="True">
+                                                <Setter Property="BackgroundColor" Value="White" />
+                                            </DataTrigger>
+                                        </Grid.Triggers>
+                                        <Label Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="Pedido:"
+                                               Style="{StaticResource OrderLabelStyle}" />
+                                        <Label Grid.Row="0"
+                                               Grid.Column="1"
+                                               Text="{Binding Id}"
+                                               Style="{StaticResource OrderInfoStyle}" />
+
+                                        <Label Grid.Row="1"
+                                               Grid.Column="0"
+                                               Text="Cliente:"
+                                               Style="{StaticResource OrderLabelStyle}" />
+                                        <Label Grid.Row="1"
+                                               Grid.Column="1"
+                                               Text="{Binding ClientName.Value}"
+                                               Style="{StaticResource OrderInfoStyle}" />
+
+                                        <Label Grid.Row="2"
+                                               Grid.Column="0"
+                                               Text="Status:"
+                                               Style="{StaticResource OrderLabelStyle}" />
+                                        <Label Grid.Row="2"
+                                               Grid.Column="1"
+                                               Text="{Binding OrderStatus}"
+                                               Style="{StaticResource OrderInfoStyle}" />
+
+                                        <Label Grid.Row="3"
+                                               Grid.Column="0"
+                                               Text="Pagamento:"
+                                               Style="{StaticResource OrderLabelStyle}" />
+                                        <Label Grid.Row="3"
+                                               Grid.Column="1"
+                                               Text="{Binding PaymentStatus}"
+                                               Style="{StaticResource OrderInfoStyle}" />
+
+                                        <Label Grid.Row="0"
+                                               Grid.RowSpan="4"
+                                               Grid.Column="2"
+                                               VerticalOptions="CenterAndExpand"
+                                               Text="{x:Static fonts:FaIcon.ChevronRight}"
+                                               Style="{StaticResource Font-Label}"
+                                               TextColor="{StaticResource Primary-Dark-Color}" />
+
+                                    </Grid>
+                                </DataTemplate>
+                            </templates:AlternateRowStyleDataTemplateSelector.Template>
+                        </templates:AlternateRowStyleDataTemplateSelector>
+
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Label Text="Nenhum pedido encontrado"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start"
+                               TextColor="{StaticResource Secondary-Text-Color}" />
+                    </CollectionView.EmptyView>
+                    <CollectionView.Footer>
+                        <BoxView HeightRequest="0" />
+                    </CollectionView.Footer>
+                </CollectionView>
+                <Frame HorizontalOptions="End"
+                       VerticalOptions="End"
+                       Padding="2"
+                       xct:TouchEffect.NativeAnimation="True"
+                       xct:TouchEffect.Command="{Binding AddNewOrderCommand}"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       CornerRadius="25"
+                       BackgroundColor="{StaticResource Accent-Color}">
+                    <Label Text="{x:Static fonts:FaIcon.Plus}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontFamily="FontAwesomeRegular"
+                           FontSize="{StaticResource Large-Font}"
+                           TextColor="White"
+                           InputTransparent="True" />
+                </Frame>
+            </Grid>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<popup:PopupPage x:Class="BeautyPortionAdmin.Views.Dialogs.Picker.PickerPage"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+                 xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                 xmlns:prism="http://prismlibrary.com"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 BackgroundColor="#33000000"
+                 CloseWhenBackgroundIsClicked="false">
+    <Frame VerticalOptions="Center"
+           Margin="{OnIdiom Tablet='50,10',
+                            Phone={StaticResource Large-Space}}"
+           Padding="0"
+           CornerRadius="0"
+           HasShadow="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid BackgroundColor="{StaticResource Accent-Color}">
+
+                <Label Text="{Binding Title}"
+                       Style="{StaticResource Bold-Label}"
+                       Margin="{StaticResource Medium-Space}"
+                       FontSize="{StaticResource Large-Font}"
+                       TextColor="{StaticResource Text-Color}"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Margin="{StaticResource LR-Small-Space}"
+                  ColumnSpacing="{StaticResource Small-Space-Value}"
+                  ColumnDefinitions="auto,*,auto">
+                <Label Grid.Column="0"
+                       Text="{x:Static fonts:FaIcon.Search}"
+                       Style="{StaticResource Font-Label}"
+                       FontSize="{StaticResource Large-Font}"
+                       VerticalTextAlignment="Center" />
+                <controls:BorderlessEntry x:Name="borderlessEntry"
+                                          Grid.Column="1"
+                                          Text="{Binding SearchCriteria.Value}"
+                                          FontSize="{StaticResource Large-Font}"
+                                          TextColor="{StaticResource Primary-Text-Color}"
+                                          Placeholder="{Binding SearchPlaceholder.Value}"
+                                          PlaceholderColor="{StaticResource Secondary-Text-Color}" />
+                <Button Grid.Column="2"
+                        Text="{x:Static fonts:FaIcon.Times}"
+                        Command="{Binding ClearCriteriaCommand}"
+                        Style="{StaticResource Font-Button}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="EndAndExpand"
+                        HeightRequest="{Binding Source={x:Reference borderlessEntry}, Path=Height}"
+                        IsVisible="{Binding SearchCriteria.Value, Converter={xct:IsNotNullOrEmptyConverter}}" />
+            </Grid>
+
+            <CollectionView Grid.Row="2"
+                            ItemsSource="{Binding Items.Value.Filtered}"
+                            ItemSizingStrategy="MeasureFirstItem"
+                            ItemTemplate="{Binding DataTemplate.Value}">
+                <CollectionView.EmptyView>
+
+                    <StackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="Nenhum item encontrado"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="Start"
+                               TextColor="{StaticResource Secondary-Text-Color}" />
+                    </StackLayout>
+
+                </CollectionView.EmptyView>
+            </CollectionView>
+
+            <Grid Grid.Row="3"
+                  Padding="{StaticResource Medium-Space}"
+                  ColumnDefinitions="*,*">
+                <Button Grid.Column="0"
+                        Text="Cancelar"
+                        Command="{Binding CancelCommand}"
+                        Style="{StaticResource Secondary-Button}" />
+                <Button Grid.Column="1"
+                        Text="Selecionar"
+                        IsVisible="{Binding IsSelectableItem.Value}"
+                        Command="{Binding SelectCommand}" />
+              <Button Grid.Column="1"
+                        Text="Confirmar"
+                        IsVisible="{Binding IsSelectableItem.Value, Converter={xct:InvertedBoolConverter}}"
+                        Command="{Binding ConfirmCommand}" />
+            </Grid>
+        </Grid>
+    </Frame>
+</popup:PopupPage>

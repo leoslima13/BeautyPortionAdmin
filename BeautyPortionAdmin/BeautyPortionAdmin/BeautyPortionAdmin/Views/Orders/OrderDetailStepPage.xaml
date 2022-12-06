@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Orders.OrderDetailStepPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+             xmlns:models="clr-namespace:BeautyPortionAdmin.Models;assembly=BeautyPortionAdmin"
+             xmlns:behaviors="clr-namespace:BeautyPortionAdmin.Behaviors;assembly=BeautyPortionAdmin"
+             xmlns:validators="clr-namespace:BeautyPortionAdmin.Validators;assembly=BeautyPortionAdmin"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="RadioButtonDefaultTemplate">
+                <Frame HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       Padding="0"
+                       BorderColor="{StaticResource Page-Background-Color}"
+                       BackgroundColor="{StaticResource Page-Background-Color}"
+                       HasShadow="False"
+                       HeightRequest="100"
+                       WidthRequest="200">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="{StaticResource Accent-Color}" />
+                                        <Setter TargetName="check" Property="Opacity" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Page-Background-Color}" />
+                                        <Setter Property="BorderColor" Value="{StaticResource Page-Background-Color}" />
+                                        <Setter TargetName="check" Property="Opacity" Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    <Grid Margin="4"
+                          WidthRequest="100">
+                        <Grid HorizontalOptions="End"
+                              VerticalOptions="Start"
+                              WidthRequest="18"
+                              HeightRequest="18">
+                            <Ellipse HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Stroke="#FF4081"
+                                     Fill="White"
+                                     WidthRequest="16"
+                                     HeightRequest="16" />
+                            <Ellipse x:Name="check"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Stroke="#FF4081"
+                                     Fill="#FF4081"
+                                     WidthRequest="8"
+                                     HeightRequest="8" />
+                        </Grid>
+                        <ContentPresenter />
+                    </Grid>
+                </Frame>
+            </ControlTemplate>
+
+            <Style TargetType="RadioButton">
+                <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonDefaultTemplate}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid VerticalOptions="FillAndExpand"
+                  Margin="{StaticResource Medium-Space}"
+                  Padding="{StaticResource Medium-Space}"
+                  xct:SafeAreaEffect.SafeArea="false,false,false,true"
+                  BackgroundColor="White"
+                  RowDefinitions="*, auto">
+
+                <StackLayout Spacing="{StaticResource Small-Space-Value}">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Forma de Pagamento"
+                                      FontFamily="GillSans"
+                                      FontSize="{StaticResource Medium-Font}" />
+                                <Span Text=" *"
+                                      FontSize="{StaticResource Medium-Font}"
+                                      TextColor="{StaticResource Accent-Color}"
+                                      FontFamily="GillSansMedium" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <StackLayout Orientation="Horizontal"
+                                 RadioButtonGroup.GroupName="paymentMethod"
+                                 RadioButtonGroup.SelectedValue="{Binding PaymentMethod.Value}">
+                        <RadioButton GroupName="paymentMethod"
+                                     Value="{x:Static models:PaymentType.Pix}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding PaymentMethod.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:PaymentType.Pix}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <controls:SvgImage Source="Images.pix.svg"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       VerticalOptions="CenterAndExpand"
+                                                       HeightRequest="35"
+                                                       WidthRequest="35" />
+                                    <Label Text="Pix"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton GroupName="paymentMethod"
+                                     Value="{x:Static models:PaymentType.BankTransfer}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding PaymentMethod.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:PaymentType.BankTransfer}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.Exchange}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeRegular"
+                                           FontSize="30" />
+                                    <Label Text="Transf."
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton GroupName="paymentMethod"
+                                     Value="{x:Static models:PaymentType.CreditCard}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding PaymentMethod.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:PaymentType.CreditCard}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.CreditCardFront}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeRegular"
+                                           FontSize="30" />
+                                    <Label Text="Cartão"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton GroupName="paymentMethod"
+                                     Value="{x:Static models:PaymentType.Money}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding PaymentMethod.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:PaymentType.Money}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.MoneyBillAlt}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeRegular"
+                                           FontSize="30" />
+                                    <Label Text="Dinheiro"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                    </StackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Forma de Entrega"
+                                      FontFamily="GillSans"
+                                      FontSize="{StaticResource Medium-Font}" />
+                                <Span Text=" *"
+                                      FontSize="{StaticResource Medium-Font}"
+                                      TextColor="{StaticResource Accent-Color}"
+                                      FontFamily="GillSansMedium" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <StackLayout Orientation="Horizontal"
+                                 RadioButtonGroup.GroupName="deliveryMethod"
+                                 RadioButtonGroup.SelectedValue="{Binding DeliveryMode.Value}">
+                        <RadioButton GroupName="deliveryMethod"
+                                     Value="{x:Static models:DeliveryMode.Withdrawal}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding DeliveryMode.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:DeliveryMode.Withdrawal}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="{x:Static fonts:FaIcon.PeopleCarry}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeRegular"
+                                           FontSize="30" />
+                                    <Label Text="Retirada"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton GroupName="deliveryMethod"
+                                     Value="{x:Static models:DeliveryMode.Delivery}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding DeliveryMode.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:DeliveryMode.Delivery}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.ShippingFast}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeRegular"
+                                           FontSize="30" />
+                                    <Label Text="Entrega"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                    </StackLayout>
+
+                    <controls:CustomEntry Text="{Binding Address.Value}"
+                                          Placeholder="Endereço"
+                                          FloatLabelText="Endereço"
+                                          IsRequired="True"
+                                          IsVisible="{Binding DeliveryMode.Value, Converter={StaticResource IsDeliveryToVisibilityConverter}}">
+                        <controls:CustomEntry.Behaviors>
+                            <behaviors:CustomEntryValidatorBehavior>
+                                <behaviors:CustomEntryValidatorBehavior.Validators>
+                                    <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                                </behaviors:CustomEntryValidatorBehavior.Validators>
+                            </behaviors:CustomEntryValidatorBehavior>
+                        </controls:CustomEntry.Behaviors>
+                    </controls:CustomEntry>
+
+                    <controls:CustomEntry Text="{Binding Freight.Value, Converter={StaticResource PriceConverter}}"
+                                          Placeholder="Frete"
+                                          FloatLabelText="Frete"
+                                          Keyboard="Numeric"
+                                          IsRequired="True"
+                                          IsVisible="{Binding DeliveryMode.Value, Converter={StaticResource IsDeliveryToVisibilityConverter}}">
+                        <controls:CustomEntry.Behaviors>
+                            <behaviors:CustomEntryValidatorBehavior>
+                                <behaviors:CustomEntryValidatorBehavior.Validators>
+                                    <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                                </behaviors:CustomEntryValidatorBehavior.Validators>
+                            </behaviors:CustomEntryValidatorBehavior>
+                        </controls:CustomEntry.Behaviors>
+                    </controls:CustomEntry>
+
+                </StackLayout>
+
+
+                <Button Grid.Row="1"
+                        Text="Avançar"
+                        Command="{Binding NextCommand}"
+                        VerticalOptions="EndAndExpand" />
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

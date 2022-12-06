@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView x:Class="BeautyPortionAdmin.Controls.CustomPicker"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+             xmlns:panc="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin">
+    <StackLayout Spacing="0">
+        <Label x:Name="floatLabel"
+               HorizontalOptions="Start"
+               Margin="{OnPlatform iOS='0,0,0,5'}"
+               FontSize="{StaticResource Small-Font}" />
+        <panc:PancakeView Padding="{StaticResource Small-Space}"
+                          BorderColor="{StaticResource Primary-Dark-Color}"
+                          BackgroundColor="White"
+                          BorderThickness="1">
+            <Grid ColumnDefinitions="*, auto">
+
+
+                <controls:BorderlessEntry x:Name="textEntry"
+                                          VerticalOptions="Center"
+                                          FontSize="{StaticResource Medium-Font}"
+                                          PlaceholderColor="{StaticResource Secondary-Text-Color}"
+                                          TextColor="{StaticResource Text-Color}"
+                                          InputTransparent="True" />
+
+
+                <Label Grid.Column="1"
+                       Text="{x:Static fonts:FaIcon.ChevronDown}"
+                       Style="{StaticResource Font-Label}"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center"
+                       Margin="0,5,5,0"
+                       FontSize="{StaticResource Large-Font}"
+                       TextColor="{StaticResource Primary-Dark-Color}"
+                       InputTransparent="true" />
+            </Grid>
+        </panc:PancakeView>
+    </StackLayout>
+</ContentView>

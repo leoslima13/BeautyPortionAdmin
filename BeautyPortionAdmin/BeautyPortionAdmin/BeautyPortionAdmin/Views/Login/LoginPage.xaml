@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Login.LoginPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+             xmlns:behaviors="clr-namespace:BeautyPortionAdmin.Behaviors;assembly=BeautyPortionAdmin"
+             xmlns:validators="clr-namespace:BeautyPortionAdmin.Validators;assembly=BeautyPortionAdmin"
+             xmlns:iOS="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:prism="http://prismlibrary.com"
+             iOS:Page.UseSafeArea="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand"
+                         Padding="{StaticResource Medium-Space}"
+                         BackgroundColor="White">
+                <controls:SvgImage Source="Images.beautyportion.svg"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   HeightRequest="200"
+                                   WidthRequest="200" />
+
+                <controls:CustomEntry Text="{Binding Username.Value}"
+                                      Placeholder="Usuario"
+                                      FloatLabelText="Usuário">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:CustomEntry Text="{Binding Password.Value}"
+                                      IsPassword="True"
+                                      Placeholder="Senha"
+                                      FloatLabelText="Senha">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:EnhancedButton Text="Login"
+                                         Command="{Binding LoginCommand}"
+                                         HorizontalOptions="FillAndExpand" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

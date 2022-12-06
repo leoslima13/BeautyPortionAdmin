@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Primary-Text-Color}" />
+        <Setter Property="FontSize" Value="{StaticResource Medium-Font}" />
+        <Setter Property="FontFamily" Value="GillSans" />
+    </Style>
+
+    <Style x:Key="Bold-Label"
+           TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Primary-Text-Color}" />
+        <Setter Property="FontSize" Value="{StaticResource Medium-Font}" />
+        <Setter Property="FontFamily" Value="GillSansMedium" />
+    </Style>
+
+    <Style x:Key="Font-Label"
+           TargetType="Label">
+        <Setter Property="FontFamily" Value="FontAwesomeRegular" />
+        <Setter Property="TextColor" Value="{StaticResource Secondary-Text-Color}" />
+    </Style>
+
+    <Style x:Key="Solid-Font-Label"
+           TargetType="Label">
+        <Setter Property="FontFamily" Value="FontAwesomeSolid" />
+        <Setter Property="TextColor" Value="{StaticResource Secondary-Text-Color}" />
+    </Style>
+
+    <Style x:Key="Title-Label"
+           TargetType="Label">
+        <Setter Property="FontFamily" Value="GillSansMedium" />
+        <Setter Property="TextColor" Value="{StaticResource Text-Color}" />
+        <Setter Property="FontSize" Value="{StaticResource X-Large-Font}" />
+    </Style>
+
+</ResourceDictionary>

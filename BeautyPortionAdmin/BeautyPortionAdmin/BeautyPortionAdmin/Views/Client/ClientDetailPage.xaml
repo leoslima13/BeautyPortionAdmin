@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Client.ClientDetailPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Content>
+        <Grid Padding="{StaticResource Medium-Space}"
+              xct:SafeAreaEffect.SafeArea="false,false,false,true"
+              RowSpacing="{StaticResource Medium-Space-Value}"
+              RowDefinitions="auto, *">
+            <Grid Grid.Row="0"
+                  HorizontalOptions="FillAndExpand"
+                  BackgroundColor="White">
+                <StackLayout Padding="{StaticResource Small-Space}"
+                             Spacing="{StaticResource Small-Space-Value}">
+                    <xct:AvatarView Text="{Binding Initials.Value}"
+                                    Source="{Binding Photo.Value}"
+                                    HorizontalOptions="Center"
+                                    BorderColor="{StaticResource Primary-Dark-Color}"
+                                    Size="100"
+                                    FontSize="{StaticResource X-Large-Font}"
+                                    TextColor="White"
+                                    Color="{StaticResource Primary-Dark-Color}" />
+
+                    <Label Text="{Binding ClientName.Value}"
+                           HorizontalOptions="Center"
+                           FontSize="{StaticResource Large-Font}"
+                           FontFamily="GillSansMedium" />
+
+                    <Grid HorizontalOptions="CenterAndExpand"
+                          ColumnDefinitions="auto,auto"
+                          RowDefinitions="auto, auto">
+                        <Label Grid.Column="0"
+                               Text="Telefone:"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"
+                               TextColor="{StaticResource Accent-Color}" />
+
+                        <Label Grid.Column="1"
+                               Text="{Binding Phone.Value}"
+                               HorizontalOptions="Start" />
+
+                        <Label Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Endereço:"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"
+                               TextColor="{StaticResource Accent-Color}" />
+
+                        <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding Address.Value}"
+                               HorizontalOptions="Start" />
+
+                    </Grid>
+                </StackLayout>
+                <Button Text="{x:Static fonts:FaIcon.EllipsisV}"
+                        Command="{Binding ActionMenuCommand}"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="Start"
+                        FontFamily="FontAwesomeRegular"
+                        TextColor="{StaticResource Primary-Dark-Color}"
+                        FontSize="40"
+                        BackgroundColor="Transparent" />
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Padding="{StaticResource Small-Space}"
+                  BackgroundColor="White"
+                  RowDefinitions="auto, *">
+                <Label Text="Pedidos"
+                       FontFamily="GillSansMedium"
+                       FontSize="{StaticResource Large-Font}"
+                       TextColor="{StaticResource Accent-Color}" />
+
+                <CollectionView Grid.Row="1"
+                                ItemsSource="{Binding Orders.Value}"
+                                ItemSizingStrategy="MeasureAllItems">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Label Text="Esse cliente ainda não possui pedidos."
+                               HorizontalOptions="Center" />
+                    </CollectionView.EmptyView>
+                </CollectionView>
+
+                <Frame Grid.Row="1"
+                       HorizontalOptions="End"
+                       VerticalOptions="End"
+                       Padding="2"
+                       xct:TouchEffect.NativeAnimation="True"
+                       xct:TouchEffect.Command="{Binding AddOrderCommand}"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       CornerRadius="25"
+                       BackgroundColor="{StaticResource Accent-Color}">
+                    <Label Text="{x:Static fonts:FaIcon.Plus}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontFamily="FontAwesomeRegular"
+                           FontSize="{StaticResource Large-Font}"
+                           TextColor="White"
+                           InputTransparent="True" />
+                </Frame>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

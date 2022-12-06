@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <x:Double x:Key="2X-Large-Font">30</x:Double>
+  <x:Double x:Key="X-Large-Font">26</x:Double>
+  <x:Double x:Key="Large-Font">20</x:Double>
+  <x:Double x:Key="Medium-Font">16</x:Double>
+  <x:Double x:Key="Small-Font">13</x:Double>
+  <x:Double x:Key="Micro-Font">10</x:Double>
+
+  <x:Double x:Key="Slide-Small-Font">14</x:Double>
+  <x:Double x:Key="Slide-Medium-Font">16</x:Double>
+  <x:Double x:Key="Slide-Large-Font">20</x:Double>
+  <x:Double x:Key="Slide-XLarge-Font">24</x:Double>
+
+  <x:Double x:Key="Micro-Icon-Font">17</x:Double>
+  <x:Double x:Key="Small-Icon-Font">20</x:Double>
+  <x:Double x:Key="Medium-Icon-Font">26</x:Double>
+  <x:Double x:Key="Large-Icon-Font">32</x:Double>
+  <x:Double x:Key="XLarge-Icon-Font">38</x:Double>
+  <x:Double x:Key="2XLarge-Icon-Font">44</x:Double>
+  <x:Double x:Key="3XLarge-Icon-Font">50</x:Double>
+  <x:Double x:Key="4XLarge-Icon-Font">60</x:Double>
+
+</ResourceDictionary>

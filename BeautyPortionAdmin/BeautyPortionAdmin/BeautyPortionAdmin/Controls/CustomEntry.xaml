@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls"
+             x:Class="BeautyPortionAdmin.Controls.CustomEntry">
+  <ContentView.Content>
+    <StackLayout Spacing="0">
+      
+      <Label x:Name="floatLabel"
+             HorizontalOptions="Start"
+             Margin="{OnPlatform iOS='0,0,0,5'}"
+             FontSize="{StaticResource Small-Font}"/>
+
+      <StackLayout x:Name="stkEntry"
+                   Margin="0,5,0,0">
+
+        <controls:BorderlessEntry x:Name="borderlessEntry"
+                                  HorizontalOptions="FillAndExpand"
+                                  VerticalOptions="FillAndExpand"
+                                  Margin="{OnPlatform Android='10,0,10,-3', iOS='10,10,10,5'}" />
+
+        <BoxView x:Name="boxView"
+                 HeightRequest="2"
+                 HorizontalOptions="FillAndExpand"
+                 Margin="{OnPlatform iOS='0,-2,0,0', Android='0,-6,0,0'}" />
+
+      </StackLayout>
+
+      <Label x:Name="messageLabel"
+             Margin="0,0,0,3"
+             FontSize="{StaticResource Small-Font}"/>
+
+    </StackLayout>
+  </ContentView.Content>
+</ContentView>

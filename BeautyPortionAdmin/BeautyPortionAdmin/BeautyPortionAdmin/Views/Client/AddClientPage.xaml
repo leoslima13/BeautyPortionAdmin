@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="BeautyPortionAdmin.Views.Client.AddClientPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:BeautyPortionAdmin.Controls;assembly=BeautyPortionAdmin"
+             xmlns:behaviors="clr-namespace:BeautyPortionAdmin.Behaviors;assembly=BeautyPortionAdmin"
+             xmlns:validators="clr-namespace:BeautyPortionAdmin.Validators;assembly=BeautyPortionAdmin"
+             xmlns:models="clr-namespace:BeautyPortionAdmin.Models;assembly=BeautyPortionAdmin"
+             xmlns:fonts="clr-namespace:BeautyPortionAdmin.Fonts;assembly=BeautyPortionAdmin"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource MasterPageTemplate}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="RadioButtonDefaultTemplate">
+                <Frame HorizontalOptions="Start"
+                       VerticalOptions="Start"
+                       Padding="0"
+                       BorderColor="{StaticResource Page-Background-Color}"
+                       BackgroundColor="{StaticResource Page-Background-Color}"
+                       HasShadow="False"
+                       HeightRequest="100"
+                       WidthRequest="100">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="{StaticResource Accent-Color}" />
+                                        <Setter TargetName="check" Property="Opacity" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Page-Background-Color}" />
+                                        <Setter Property="BorderColor" Value="{StaticResource Page-Background-Color}" />
+                                        <Setter TargetName="check" Property="Opacity" Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                    <Grid Margin="4"
+                          WidthRequest="100">
+                        <Grid HorizontalOptions="End"
+                              VerticalOptions="Start"
+                              WidthRequest="18"
+                              HeightRequest="18">
+                            <Ellipse HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Stroke="#FF4081"
+                                     Fill="White"
+                                     WidthRequest="16"
+                                     HeightRequest="16" />
+                            <Ellipse x:Name="check"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Stroke="#FF4081"
+                                     Fill="#FF4081"
+                                     WidthRequest="8"
+                                     HeightRequest="8" />
+                        </Grid>
+                        <ContentPresenter />
+                    </Grid>
+                </Frame>
+            </ControlTemplate>
+
+            <Style TargetType="RadioButton">
+                <Setter Property="ControlTemplate" Value="{StaticResource RadioButtonDefaultTemplate}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Margin="{StaticResource Small-Space}"
+                         Padding="{StaticResource Medium-Space}"
+                         BackgroundColor="White"
+                         Spacing="{StaticResource Small-Space-Value}">
+
+                <xct:AvatarView Text="{Binding Initials.Value}"
+                                Source="{Binding Photo.Value}"
+                                HorizontalOptions="CenterAndExpand"
+                                FontSize="{StaticResource X-Large-Font}"
+                                Size="140"
+                                Color="{StaticResource Primary-Dark-Color}">
+                    <xct:AvatarView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddPhotoCommand}" />
+                    </xct:AvatarView.GestureRecognizers>
+                </xct:AvatarView>
+
+                <controls:CustomEntry Text="{Binding FirstName.Value}"
+                                      Placeholder="Primeiro nome"
+                                      FloatLabelText="Primeiro Nome"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+                <controls:CustomEntry Text="{Binding LastName.Value}"
+                                      Placeholder="Sobrenome"
+                                      FloatLabelText="Sobrenome"
+                                      IsRequired="True">
+                    <controls:CustomEntry.Behaviors>
+                        <behaviors:CustomEntryValidatorBehavior>
+                            <behaviors:CustomEntryValidatorBehavior.Validators>
+                                <validators:NullOrEmptyValidator FailMessage="Campo de preenchimento obrigatório" />
+                            </behaviors:CustomEntryValidatorBehavior.Validators>
+                        </behaviors:CustomEntryValidatorBehavior>
+                    </controls:CustomEntry.Behaviors>
+                </controls:CustomEntry>
+
+
+                <controls:CustomEntry Text="{Binding Phone.Value}"
+                                      Keyboard="Numeric"
+                                      Placeholder="Telefone"
+                                      FloatLabelText="Telefone" />
+
+                <controls:CustomEntry Text="{Binding Address.Value}"
+                                      Placeholder="Endereço"
+                                      FloatLabelText="Endereço" />
+
+                <StackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="De onde veio o cliente?"
+                                      FontFamily="GillSans"
+                                      FontSize="{StaticResource Small-Font}" />
+                                <Span Text=" *"
+                                      FontSize="{StaticResource Medium-Font}"
+                                      TextColor="{StaticResource Accent-Color}"
+                                      FontFamily="GillSansMedium" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <StackLayout Orientation="Horizontal"
+                                 RadioButtonGroup.GroupName="clientPlatform"
+                                 RadioButtonGroup.SelectedValue="{Binding ClientIsFrom.Value}">
+                        <RadioButton GroupName="clientPlatform"
+                                     Value="{x:Static models:ClientIsFrom.Facebook}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding ClientIsFrom.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:ClientIsFrom.Facebook}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.Facebook}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeBrands"
+                                           FontSize="30" />
+                                    <Label Text="Facebook"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton GroupName="clientPlatform"
+                                     Value="{x:Static models:ClientIsFrom.Instagram}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding ClientIsFrom.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:ClientIsFrom.Instagram}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.Instagram}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeBrands"
+                                           FontSize="30" />
+                                    <Label Text="Instagram"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton GroupName="clientPlatform"
+                                     Value="{x:Static models:ClientIsFrom.Whatsapp}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding ClientIsFrom.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:ClientIsFrom.Whatsapp}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.Whatsapp}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeBrands"
+                                           FontSize="30" />
+                                    <Label Text="Whatsapp"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton GroupName="clientPlatform"
+                                     Value="{x:Static models:ClientIsFrom.Indication}">
+                            <RadioButton.Triggers>
+                                <DataTrigger Binding="{Binding ClientIsFrom.Value}"
+                                             TargetType="RadioButton"
+                                             Value="{x:Static models:ClientIsFrom.Indication}">
+                                    <Setter Property="IsChecked" Value="True" />
+                                </DataTrigger>
+                            </RadioButton.Triggers>
+                            <RadioButton.Content>
+                                <StackLayout>
+                                    <Label Text="{x:Static fonts:FaIcon.UserFriends}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="CenterAndExpand"
+                                           FontFamily="FontAwesomeRegular"
+                                           FontSize="30" />
+                                    <Label Text="Indicação"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                    </StackLayout>
+                </StackLayout>
+
+                <controls:EnhancedButton Text="Adicionar"
+                                         Command="{Binding AddClientCommand}"
+                                         HorizontalOptions="FillAndExpand"
+                                         Margin="{StaticResource T-Small-Space}"
+                                         IsVisible="{Binding AddingClient.Value}"
+                                         IsBusy="{Binding BusyNotifier.IsBusy}" />
+
+                <controls:EnhancedButton Text="Salvar"
+                                         Command="{Binding EditClientCommand}"
+                                         HorizontalOptions="FillAndExpand"
+                                         Margin="{StaticResource T-Small-Space}"
+                                         IsVisible="{Binding AddingClient.Value, Converter={xct:InvertedBoolConverter}}"
+                                         IsBusy="{Binding BusyNotifier.IsBusy}" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

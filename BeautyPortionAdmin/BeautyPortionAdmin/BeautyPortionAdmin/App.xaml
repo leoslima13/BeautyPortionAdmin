@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication x:Class="BeautyPortionAdmin.App"
+                        xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:prism="http://prismlibrary.com"
+                        xmlns:converters="clr-namespace:BeautyPortionAdmin.Converters;assembly=BeautyPortionAdmin">
+    <Application.Resources>
+
+        <!--  Application resource dictionary  -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/Spaces.xaml" />
+                <ResourceDictionary Source="Styles/Fonts.xaml" />
+                <ResourceDictionary Source="Styles/Entry.xaml" />
+                <ResourceDictionary Source="Styles/Buttons.xaml" />
+                <ResourceDictionary Source="Styles/Labels.xaml" />
+                <ResourceDictionary Source="Views/Master/MasterPageTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:PriceConverter x:Key="PriceConverter" />
+            <converters:IsDeliveryToVisibilityConverter x:Key="IsDeliveryToVisibilityConverter" />
+        </ResourceDictionary>
+
+    </Application.Resources>
+</prism:PrismApplication>
